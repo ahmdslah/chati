@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1033270227566",
+    "project_id": "chati-f6518",
+    "storage_bucket": "chati-f6518.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033270227566:android:a049db73dc9ec448592c7f",
+        "android_client_info": {
+          "package_name": "com.example.chati"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAts0zM0gQ0stlS9t-RQq8RXMNBtJVWNnw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

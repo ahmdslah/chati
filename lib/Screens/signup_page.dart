@@ -1,10 +1,224 @@
+import 'package:chati/Screens/signup_otp.dart';
+import 'package:chati/const/routes.dart';
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 
-class SignupPage extends StatelessWidget {
+class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
 
   @override
+  State<SignupPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<SignupPage> {
+  final TextEditingController _phone = TextEditingController();
+  String? phone;
+  String countryname = "🇪🇬";
+  bool isChecked = false;
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text("data")));
+    final isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
+
+    return Scaffold(
+      backgroundColor: Color.fromARGB(255, 221, 244, 244),
+      body: Column(
+        children: [
+          !isKeyboardOpen
+              ? Container(
+                height: 400,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/Rectangle-flip.png"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 30.0, right: 30),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 80),
+                      Row(
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushReplacementNamed(
+                                context,
+                                Routes.login,
+                              );
+                            },
+                            child: Row(
+                              children: [
+                                Icon(Icons.arrow_back_sharp),
+                                Text(
+                                  "   Login",
+                                  style: TextStyle(
+                                    color: Color(0xff1565C0),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                            "Register",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 35,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        "Enter Your Mobile Phone",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 40,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+              : Container(
+                height: 300,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage("assets/images/Rectangle-open.png"),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 30.0, right: 30),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 80),
+                      Row(
+                        children: [
+                          ElevatedButton(
+                            onPressed: () {
+                              Navigator.pushReplacementNamed(
+                                context,
+                                Routes.login,
+                              );
+                            },
+                            child: Row(
+                              children: [
+                                Icon(Icons.arrow_back_sharp),
+                                Text(
+                                  "   Login",
+                                  style: TextStyle(
+                                    color: Color(0xff1565C0),
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.normal,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                            "Register",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 35,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 20),
+                      Text(
+                        "Enter Your Mobile Phone",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+
+          SizedBox(height: 20),
+          Text(
+            "You Will get a code via sms",
+            style: TextStyle(
+              color: Color(0xff1B526B),
+              fontSize: 20,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
+
+          Row(
+            children: [
+              IconButton(
+                onPressed: () {
+                  showCountryPicker(
+                    context: context,
+                    showPhoneCode: true, // لإظهار رمز الدولة
+                    onSelect: (Country country) {
+                      countryname = country.flagEmoji;
+                      _phone.text = "+${country.phoneCode}";
+                      print(country.flagEmoji);
+                      setState(() {});
+                    },
+                  );
+                },
+                icon: Text(countryname, style: TextStyle(fontSize: 25)),
+              ),
+              Expanded(
+                child: TextField(
+                  keyboardType: TextInputType.number,
+                  controller: _phone,
+                  decoration: InputDecoration(),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            children: [
+              Checkbox(
+                value: isChecked,
+                onChanged: (bool? value) {
+                  setState(() {
+                    isChecked = value ?? false;
+                  });
+                },
+              ),
+              Text(
+                "Remember Me",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              Spacer(),
+              IconButton(
+                onPressed: () {
+                  phone = _phone.text;
+                  print(
+                    "-----------------------------------------------------",
+                  );
+                  print(phone);
+                  print(
+                    "-----------------------------------------------------",
+                  );
+                  Navigator.pushReplacementNamed(context, Routes.signupOtp);
+                },
+                icon: Icon(
+                  Icons.arrow_circle_right_rounded,
+                  color: Colors.blueAccent,
+                  size: 65,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
